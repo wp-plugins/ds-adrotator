@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: DeepSystems Ad Rotator
+Plugin Name: DS Ad Rotator
 Plugin URI: http://www.ds.ee
 Description: This is a really great plugin that extends WordPress.
 Version: 0.6

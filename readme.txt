@@ -6,11 +6,11 @@ Requires at least: 3.0 or higher
 Tested up to: 3.0.1.
 Stable tag: 0.6
 
-Plugin DeepSystem's AdRotator allows you to store banners and display them in a given zone.
+Plugin DS AdRotator allows you to store banners and display them in a given zone.
 
 == Description ==
 
-Plugin DeepSystem's AdRotator allows you to store banners and display them in a given zone.
+Plugin DS AdRotator allows you to store banners and display them in a given zone.
 
 == Installation ==
 
