@@ -3,7 +3,7 @@
 Plugin Name: DS Ad Rotator
 Plugin URI: http://www.ds.ee
 Description: This is a really great plugin that extends WordPress.
-Version: 0.6
+Version: 0.6.1
 Author: Jevgeni Kazantsev
 Author URI: http://www.ds.ee
 */

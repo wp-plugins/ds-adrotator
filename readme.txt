@@ -4,7 +4,7 @@ Donate link: http://www.ds.ee
 Tags: advertising, banner
 Requires at least: 3.0 or higher
 Tested up to: 3.0.1.
-Stable tag: 0.6
+Stable tag: 0.6.1
 
 Plugin DS AdRotator allows you to store banners and display them in a given zone.
 
@@ -29,9 +29,13 @@ Plugin DS AdRotator allows you to store banners and display them in a given zone
 = 0.6 =
 * Another change.
 
+= 0.6.1 =
+* Another change.
+
 == Upgrade Notice ==
 
-yet none
+= 0.6.1 =
+This version contains minor changes. Update immediately.
 
 == Frequently Asked Questions ==
 
