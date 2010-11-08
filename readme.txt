@@ -26,9 +26,6 @@ Plugin DS AdRotator allows you to store banners and display them in a given zone
 
 == Changelog ==
 
-= 0.6 =
-* Another change.
-
 = 0.6.1 =
 * Another change.
 
