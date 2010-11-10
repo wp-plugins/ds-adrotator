@@ -27,6 +27,7 @@ class DSAdRotator {
     	$group = $this->db->get_row($this->db->prepare("SELECT * FROM `" . $this->tables[1]."` WHERE `id` = '$group_id'"));
     	$banners = $this->db->get_results($this->db->prepare("SELECT * FROM `" . $this->tables[0]."` WHERE `group` = '$group_id'".$active_banner." ORDER BY RAND() LIMIT $group->columns"));
     	foreach ($banners as $banner) {
+		echo "<div class='banner-content'>";
     		$banner_type = end(explode(".", $banner->banner));
     		$banner_file = $this->banners_folder.$banner->banner;
     		$swf_link = "&clickTAG=".$banner->link;
@@ -44,6 +45,7 @@ class DSAdRotator {
     			wp_swfobject_echo($banner_file, $width, $height, $swf_link);
     		} else { ?>
     			<a href="<?php echo $banner->link; ?>"><img style="width : <?php echo $width;?>px; height: <?php echo $height;?>px;" src="<?php echo $banner_file; ?>" /></a>
+		<?php echo "</div>"; ?>
     			<?php
     		}
     	}
