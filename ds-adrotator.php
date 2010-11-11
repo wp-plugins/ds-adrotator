@@ -17,7 +17,7 @@ if ( is_admin() ) {
     	register_deactivation_hook( __FILE__, array( &$ds_adrotator, 'uninstall' ) );
     }
 } else {
-	function ds_show_banners($group_id) {
+	function ds_show_banners($group_id, $banner_list = false) {
 		global $wpdb;
 		$ds_adbanners_folder = get_site_url() . '/wp-content/banners/';
 		$ds_adtables = array(
@@ -30,7 +30,7 @@ if ( is_admin() ) {
     	$group = $wpdb->get_row($wpdb->prepare("SELECT * FROM `" . $ds_adtables[1]."` WHERE `id` = '$group_id'"));
     	$banners = $wpdb->get_results($wpdb->prepare("SELECT * FROM `" . $ds_adtables[0]."` WHERE `group` = '$group_id'".$active_banner." ORDER BY RAND() LIMIT $group->columns"));
 		foreach ($banners as $banner) {
-				echo '<div class="content-banner">';
+				if ($banner_list) {echo '<li>';} 
 	    		$banner_type = end(explode(".", $banner->banner));
 	    		$banner_file = $ds_adbanners_folder.$banner->banner;
 	    		$swf_link = "&clickTAG=".$banner->link;
@@ -52,7 +52,7 @@ if ( is_admin() ) {
 	    			<a href="<?php echo $banner->link; ?>"><img style="width : <?php echo $width;?>px; height: <?php echo $height;?>px;" src="<?php echo $banner_file; ?>" /></a>
 	    			<?php
 	    		}
-				echo '</div>';
+				if ($banner_list) {echo '</li>';}
 	    	}
 	}
 }
