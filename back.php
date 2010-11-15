@@ -58,15 +58,24 @@ class DSAdRotator {
 		return false;
     }
 
-   	public function add_admin_pages() {
+    function add_admin_pages() {
     	add_object_page( 'DS AdRotator', 'DS AdRotator', -1, __FILE__, array( &$this, 'plugin_manage' ) );
 		add_submenu_page( __FILE__, 'Manage Banners', 'Manage Banners', 7, 'dsrotator', array( &$this, 'manage_banners' ) );
 		add_submenu_page( __FILE__, 'Add Banner', 'Add Banner', 7, 'dsrotator2', array( &$this, 'add_banner' ) );
 		add_submenu_page( __FILE__, 'Manage Groups', 'Manage Groups', 7, 'dsrotator3', array( &$this, 'manage_groups' ) );
 		add_submenu_page( __FILE__, 'Add Group', 'Add Group', 7, 'dsrotator4', array( &$this, 'add_group' ) );
     }
-    
-    public function manage_banners() {   	
+    function generateRandomStr($length = 6){
+	  $chars = 'abdefhiknrstyzABDEFGHKNQRSTYZ23456789';
+	  $numChars = strlen($chars);
+	  $string = '';
+	  for ($i = 0; $i < $length; $i++) {
+	    $string .= substr($chars, rand(1, $numChars) - 1, 1);
+	  }
+	  return $string;
+	}
+
+    function manage_banners() {   	
 		$message = $_GET['message'];
 		$rotator_db_error = false;
 		if(isset($_POST['rotator_order'])) { 
@@ -206,7 +215,7 @@ class DSAdRotator {
     }
 	
 	
-	public function insert_group() {
+	function insert_group() {
 
 		$id 		= $_POST['adgroup_id'];
 		$name 		= $_POST['adgroup_name'];
@@ -233,7 +242,7 @@ class DSAdRotator {
 			exit;
 		}
 	}
-	public function rotator_return($action, $arg = null) {
+	function rotator_return($action, $arg = null) {
 		switch($action) {
 			// Regular actions
 			case "new" :
@@ -308,7 +317,7 @@ class DSAdRotator {
 			break;
 		}
 	}
-	public function rotator_delete($id, $what) {
+	function rotator_delete($id, $what) {
 			if($id > 0) {
 				if($what == 'banner') {
 					$filename = $this->db->get_var("SELECT `banner` FROM `" . $this->tables[0] . "` WHERE `id` = $id");
@@ -351,7 +360,7 @@ class DSAdRotator {
 				}
 		}
 	}
-	public function group_action() {
+	function group_action() {
 		if ( isset($_POST['submit']) && check_admin_referer('groups_form')  ) {
 			if ( !current_user_can('manage_options') ) {
 				$this->rotator_return('no_access');
@@ -411,7 +420,7 @@ class DSAdRotator {
 			}
 		}
 	}
-	public function add_group () { 
+	function add_group () { 
 		$message = $_GET['message'];
 		if($_GET['edit_group']) $group_edit_id = $_GET['edit_group'];
 		?>
@@ -570,7 +579,7 @@ class DSAdRotator {
 		<?php 
 	}
 
-	public function  add_banner() { 
+	function  add_banner() { 
 		$thetime 	= current_time('timestamp');
 		$startshow = $thetime;
 		$endshow = $thetime + 31536000;
@@ -782,7 +791,7 @@ class DSAdRotator {
 		<?php } ?>
 		</div> <?php
 	}
-	public function insert_banner() { 
+	function insert_banner() { 
 		$banner_id 			= $_POST['banner_id'];
 		$author 			= $_POST['banner_username'];
 		$title	 			= htmlspecialchars(trim($_POST['banner_title'], "\t\n "), ENT_QUOTES);
@@ -803,9 +812,10 @@ class DSAdRotator {
 				$this->rotator_return('file-upload-error');
 				exit;
 			} else {
+				$rnd_str = $this->generateRandomStr();
 				$banner_path = ABSPATH.$this->banners_folder;
-				$banner_path = $banner_path . basename( $_FILES['banner_file']['name']);
-				$banner_filename = basename( $_FILES['banner_file']['name']);
+				$banner_path = $banner_path . $rnd_str . basename( $_FILES['banner_file']['name']);
+				$banner_filename = $rnd_str . basename( $_FILES['banner_file']['name']);
 				if( ! move_uploaded_file($_FILES['banner_file']['tmp_name'], $banner_path)) {
 					$this->rotator_return('move-file-error');
 					exit;
@@ -843,7 +853,7 @@ class DSAdRotator {
 			exit;
 		}
 	}
-	public function banner_active($id, $what) {
+	function banner_active($id, $what) {
 	
 		if($id > 0) {
 			if($what == 'deactivate') {
@@ -854,18 +864,18 @@ class DSAdRotator {
 			}
 		}
 	}
-	public function banner_renew($id, $howlong = 31536000) {
+	function banner_renew($id, $howlong = 31536000) {
 
 		if($id > 0) {
 			$this->db->query($this->db->prepare("UPDATE `" . $this->tables[0] . "` SET `endshow` = `endshow` + '$howlong' WHERE `id` = '$id'"));
 		}
 	}
-	public function banner_move($id, $group) {
+	function banner_move($id, $group) {
 		if($id > 0) {
 			$this->db->query($this->db->prepare("UPDATE `" . $this->tables[0] . "` SET `group` = '$group' WHERE `id` = '$id'"));
 		}
 	}
-	public function expired_banners() {
+	function expired_banners() {
 		$now = current_time('timestamp');
 		$count_exp = 0;
 		

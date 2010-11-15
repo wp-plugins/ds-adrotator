@@ -3,7 +3,7 @@
 Plugin Name: DS Ad Rotator
 Plugin URI: http://www.ds.ee
 Description: This plugin is small banner ad management system for WordPress.
-Version: 0.7.1
+Version: 0.7.5
 Author: Jevgeni Kazantsev
 Author URI: http://www.ds.ee
 */
