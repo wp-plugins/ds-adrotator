@@ -468,7 +468,7 @@ class DSAdRotator {
 					<tr id='group-new'>
 						<th scope="row"><?php _e('Columns'); ?>:</th>
 						<td>
-							<select tabindex="2" name="adgroup_columns"><?php for ($i = 1; $i <= 10; $i++) { ?>
+							<select tabindex="2" name="adgroup_columns"><?php for ($i = 1; $i <= 20; $i++) { ?>
 								<option value="<?php echo $i; if ($group_edit_id && $i == $edit_group->columns) echo "selected";?>"><?php echo $i;?></option>
 								<?php }?>
 							</select>
